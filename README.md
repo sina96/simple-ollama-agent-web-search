@@ -15,7 +15,8 @@ A small **intro project** to [Ollama](https://ollama.com) and its APIs: a statel
 2. **Ollama** installed and running locally  
    - Install: [ollama.com](https://ollama.com)  
    - Start: run `ollama serve` (or start the Ollama app). The agent expects `http://localhost:11434`.
-3. **A model pulled** in Ollama, e.g.:
+3. **curl** — required by `run.sh` to check whether the Ollama server is reachable.
+4. **A model pulled** in Ollama, e.g.:
    ```bash
    ollama pull llama3.2:1b
    ```
@@ -35,7 +36,21 @@ source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## How to run
+## Quick start (one command)
+
+From the project directory, with your venv activated:
+
+```bash
+./run.sh
+```
+
+If the script is not executable, run once: `chmod +x run.sh`.
+
+`run.sh` starts the Ollama server in the background if it is not already running (waits up to ~30s for it to be ready), optionally ensures the default model is available (`ollama pull`), then runs the Python agent. Prerequisites: **Ollama** and **curl** installed and on PATH. To use a different model: `OLLAMA_MODEL=qwen2.5:1b-instruct ./run.sh` (the agent still uses the model set in `ollama-agent.py` unless you change it there).
+
+## How to run (manual)
+
+If Ollama is already running:
 
 ```bash
 python ollama-agent.py
